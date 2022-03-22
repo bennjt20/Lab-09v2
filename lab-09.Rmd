@@ -75,23 +75,91 @@ with(evals,plot(score, bty_avg))
 ```
 
 Q6. Interpret the slope of the linear model in context of the data.
-A. 
+A. The slope (.066) is an effect size representing the degree to which eval scores are associated with (i.e., can predict) average beauty rating. 
 
 Q7. Interpret the intercept of the linear model in context of the data. Comment on whether or not the intercept makes sense in this context.
-A. 
+A. The intercept (3.88) is the predicted eval score for an individual with a “0” on average beauty rating.
+On initial impression, this intercept does not make sense to me, in this context. An individual with a "0" on beauty rating does not seem to have a place in the visual plot. After looking at the plot further, it makes sense that a person with a "0" on beauty rating would have an eval score in the middle of the plot. If there is a weak relationship between our variables, then the predictor variable simply predicts "something in the middle". 
 
 Q8. Determine the R2 of the model and interpret it in context of the data.
-A. 
+A. In the context of this data, and probably most data, an R2 of .033 can be considered very low. Here, (.033) or 3 percent is the proportion of variance in eval scores that is accounted for by beauty rating. The R2 (.033) is an effect size representing the degree to which individuals’ beauty ratings are associated with (i.e., can predict) their eval scores.
 
 ### Part 3
 
 Q9. Fit a new linear model called m_gen to predict average professor evaluation score based on gender of the professor. Based on the regression output, write the linear model and interpret the slope and intercept in context of the data.
+A. Our linear model (y=b0+b1x) will be y = 4.1 + .14
+-The slope (.14) is an effect size representing the degree to which gender is associated with (i.e., can predict) eval score. 
+-The intercept (4.1) is the predicted eval score for an individual with a “0” on gender.
 
-Q10. What is the equation of the line corresponding to male professors? What is it for female professors?
+
+```{r VizPart3}
+p <- ggplot(evals, aes(score, gender))
+p + geom_point()
+```
+
+```{r Linearmodel2}
+mgen.lm <- lm(score ~ gender, data = evals)
+summary(mgen.lm)
+```
+
+
+
+Q10.1. What is the equation of the line corresponding to male professors? 
+Our linear model will be y = 3.7 + .11
+
+
+```{r Filtermale}
+male_data <- evals %>%
+filter(gender == "male")
+```
+
+```{r MaleData}
+p <- ggplot(male_data, aes(score, bty_avg))
+p + geom_point()
+```
+```{r MaleLinearmodel}
+male.lm <- lm(score ~ bty_avg, data = male_data)
+summary(male.lm)
+```
+
+Q10.2. What is the equation of the line corresponding to female professors?
+Our linear model will be y = 3.95 + .03
+
+
+```{r Filterfemale}
+female_data <- evals %>%
+filter(gender == "female")
+```
+
+```{r FemaleData}
+p <- ggplot(female_data, aes(score, bty_avg))
+p + geom_point()
+```
+
+```{r FemaleLinearmodel}
+female.lm <- lm(score ~ bty_avg, data = female_data)
+summary(female.lm)
+```
+
 
 Q11. Fit a new linear model called m_rank to predict average professor evaluation score based on rank of the professor. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data.
+A. Our linear model for tenure track is y = 4.3 - .13
+-The slope (-.13) is an effect size representing the degree to which tenure track status is associated with (i.e., can predict) eval score. 
+-The intercept (4.3) is the predicted eval score for an individual with a “0” on tenure track. 
+
+```{r RankLinearmodel}
+m_rank.lm <- lm(score ~ rank, data = evals)
+summary(m_rank.lm)
+```
+
 
 Q12. Create a new variable called rank_relevel where "tenure track" is the baseline level.
+
+```{r NewVarTenureTrack}
+rank_relevel <- evals %>%
+filter(rank == "tenure track")
+```
+
 
 Q13. Fit a new linear model called m_rank_relevel to predict average professor evaluation score based on rank_relevel of the professor. This is the new (releveled) variable you created in Exercise 13. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data. Also determine and interpret the R2 of the model.
 
