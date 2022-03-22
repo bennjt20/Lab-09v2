@@ -17,16 +17,16 @@ library(openintro)
 ?evals
 ```
 
-### Exercise 1
+### Part 1
 
 ```{r Viz1}
 ggplot(evals, aes(x = score)) + geom_density()
 ```
 
-Q. Visualize the distribution of score. Is the distribution skewed? What does that tell you about how students rate courses? Is this what you expected to see? Why, or why not? Include any summary statistics and visualizations you use in your response.
+Q1. Visualize the distribution of score. Is the distribution skewed? What does that tell you about how students rate courses? Is this what you expected to see? Why, or why not? Include any summary statistics and visualizations you use in your response.
 A. The distribution is negatively skewed. This tells me that students rate the majority of their courses with very high scores. I was expecting to see a normal distribution because there would be a vast diversity of opinions when it comes to course evals. However, the positive evals do make sense when considering that many of the courses will be electives, leading to a natural tendency for students to at least favor the material covered in the courses. This could possibly boost impressions of individual professors. 
 
-Q: Visualize and describe the relationship between score and the variable bty_avg, a professor’s average beauty rating.
+Q2. Visualize and describe the relationship between score and the variable bty_avg, a professor’s average beauty rating.
     Hint: See the help page for the function at http://ggplot2.tidyverse.org/reference/index.html.
 
 ```{r Viz2}
@@ -34,7 +34,7 @@ p <- ggplot(evals, aes(score, bty_avg))
 p + geom_point()
 ```
 
-Q. Replot the scatterplot from Exercise 3, but this time use geom_jitter()? What does “jitter” mean? What was misleading about the initial scatterplot?
+Q3. Replot the scatterplot from Exercise 3, but this time use geom_jitter()? What does “jitter” mean? What was misleading about the initial scatterplot?
 A. Jittering adds a small amount of variation to the data points, so that they do not visually plot on top of each other. When that happens, two data points would appear as one. So that we can see our data points, jitter spaces the points out slightly. 
 
 ```{r Viz3}
@@ -49,9 +49,9 @@ p + geom_jitter(aes(colour = gender))
 ```
 
 
-### Exercise 2
+### Part 2
 
-Q. Let’s see if the apparent trend in the plot is something more than natural variation. Fit a linear model called m_bty to predict average professor evaluation score by average beauty rating (bty_avg). Based on the regression output, write the linear model.
+Q4. Let’s see if the apparent trend in the plot is something more than natural variation. Fit a linear model called m_bty to predict average professor evaluation score by average beauty rating (bty_avg). Based on the regression output, write the linear model.
 A. The code and results of the linear model are below.
 
 ```{r Linearmodel1}
@@ -61,7 +61,7 @@ summary(m_bty.lm)
 
 Thus, our linear model (y=b0+b1x) will be y = 3.88 + .066 
 
-Q. Replot your visualization from Exercise 3, and add the regression line to this plot in orange color. Turn off the shading for the uncertainty of the line.
+Q5. Replot your visualization from Exercise 3, and add the regression line to this plot in orange color. Turn off the shading for the uncertainty of the line.
 A. Code for regression line added to visualization. 
 
 ```{r Viz5}
@@ -74,9 +74,30 @@ with(evals,plot(score, bty_avg))
 	abline(reg1)
 ```
 
+Q6. Interpret the slope of the linear model in context of the data.
+A. 
+
+Q7. Interpret the intercept of the linear model in context of the data. Comment on whether or not the intercept makes sense in this context.
+A. 
+
+Q8. Determine the R2 of the model and interpret it in context of the data.
+A. 
+
+### Part 3
+
+Q9. Fit a new linear model called m_gen to predict average professor evaluation score based on gender of the professor. Based on the regression output, write the linear model and interpret the slope and intercept in context of the data.
+
+Q10. What is the equation of the line corresponding to male professors? What is it for female professors?
+
+Q11. Fit a new linear model called m_rank to predict average professor evaluation score based on rank of the professor. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data.
+
+Q12. Create a new variable called rank_relevel where "tenure track" is the baseline level.
+
+Q13. Fit a new linear model called m_rank_relevel to predict average professor evaluation score based on rank_relevel of the professor. This is the new (releveled) variable you created in Exercise 13. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data. Also determine and interpret the R2 of the model.
+
+Q14. Create another new variable called tenure_eligible that labels "teaching" faculty as "no" and labels "tenure track" and "tenured" faculty as "yes".
+
+Q15. Fit a new linear model called m_tenure_eligible to predict average professor evaluation score based on tenure_eligibleness of the professor. This is the new (regrouped) variable you created in Exercise 15. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data. Also determine and interpret the R2
+of the model.
 
 
-Add exercise headings as needed.
-
-## 
-For Exercise 12, relevel() function can be helpful! 
