@@ -1,7 +1,7 @@
 ---
-title: "Lab 09 - Grading the professor, Pt. 1"
-author: "Insert your name here"
-date: "Insert date here"
+title: "Lab 09v2 - Grading the professor, Pt. 1"
+author: "John Bennett"
+date: "March 22, 2022"
 output: github_document
 ---
 
@@ -9,20 +9,78 @@ output: github_document
 
 ```{r load-packages, message=FALSE}
 library(tidyverse) 
-library(tidymodels)
+library(broom)
 library(openintro)
+```
+
+```{r ?evals}
+?evals
 ```
 
 ### Exercise 1
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r Viz1}
+ggplot(evals, aes(x = score)) + geom_density()
+```
+
+Q. Visualize the distribution of score. Is the distribution skewed? What does that tell you about how students rate courses? Is this what you expected to see? Why, or why not? Include any summary statistics and visualizations you use in your response.
+A. The distribution is negatively skewed. This tells me that students rate the majority of their courses with very high scores. I was expecting to see a normal distribution because there would be a vast diversity of opinions when it comes to course evals. However, the positive evals do make sense when considering that many of the courses will be electives, leading to a natural tendency for students to at least favor the material covered in the courses. This could possibly boost impressions of individual professors. 
+
+Q: Visualize and describe the relationship between score and the variable bty_avg, a professor’s average beauty rating.
+    Hint: See the help page for the function at http://ggplot2.tidyverse.org/reference/index.html.
+
+```{r Viz2}
+p <- ggplot(evals, aes(score, bty_avg))
+p + geom_point()
+```
+
+Q. Replot the scatterplot from Exercise 3, but this time use geom_jitter()? What does “jitter” mean? What was misleading about the initial scatterplot?
+A. Jittering adds a small amount of variation to the data points, so that they do not visually plot on top of each other. When that happens, two data points would appear as one. So that we can see our data points, jitter spaces the points out slightly. 
+
+```{r Viz3}
+p <- ggplot(evals, aes(score, bty_avg))
+p + geom_jitter()
+```
+
+-Testing a different way of fine-tuning the visualization. 
+```{r Viz4}
+p <- ggplot(evals, aes(score, bty_avg))
+p + geom_jitter(aes(colour = gender))
+```
+
 
 ### Exercise 2
 
+Q. Let’s see if the apparent trend in the plot is something more than natural variation. Fit a linear model called m_bty to predict average professor evaluation score by average beauty rating (bty_avg). Based on the regression output, write the linear model.
+A. The code and results of the linear model are below.
+
+```{r Linearmodel1}
+m_bty.lm <- lm(score ~ bty_avg, data = evals)
+summary(m_bty.lm)
+```
+
+Thus, our linear model (y=b0+b1x) will be y = 3.88 + .066 
+
+Q. Replot your visualization from Exercise 3, and add the regression line to this plot in orange color. Turn off the shading for the uncertainty of the line.
+A. Code for regression line added to visualization. 
+
+```{r Viz5}
+ggplot(evals, aes(score, bty_avg)) + 
+geom_jitter() +
+abline(lm(score ~ bty_avg))
+```
+
+
+
+
+```{r Viz5.1}
+ggplot(evals, aes(score, bty_avg)) +
+geom_jitter() +
+abline(lm(score ~ bty_avg))
+```
+
 ...
+
 
 Add exercise headings as needed.
 
