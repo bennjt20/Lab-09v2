@@ -66,20 +66,14 @@ A. Code for regression line added to visualization.
 
 ```{r Viz5}
 ggplot(evals, aes(score, bty_avg)) + 
-geom_jitter() +
-abline(lm(score ~ bty_avg))
+geom_jitter() 
+stat_smooth(method = lm) 
+reg1 <- lm(score~bty_avg,data=evals) 
+	summary(reg1)
+with(evals,plot(score, bty_avg))
+	abline(reg1)
 ```
 
-
-
-
-```{r Viz5.1}
-ggplot(evals, aes(score, bty_avg)) +
-geom_jitter() +
-abline(lm(score ~ bty_avg))
-```
-
-...
 
 
 Add exercise headings as needed.
