@@ -171,6 +171,7 @@ summary(m_rank_relevel.lm)
 [Note 1: the command above gave me an error message halting execution, so I've removed this from the Knit.
 Note 2: I've ended up with only one faculty rank at this stage, which prevents a comparison of groups...]
 
+```
 Q14. Create another new variable called tenure_eligible that labels "teaching" faculty as "no" and labels "tenure track" and "tenured" faculty as "yes".
 
 Create new variable row out of old variable
@@ -180,11 +181,13 @@ evals$NewVar <- evals$rank
 
 [Note: I know I needed to do the above command, so I feel good about that. However, the next step requires either filter or rename]
 
-```{r NewVarandRename}
+``{r NewVarandRename}
 evals <- rename(evals, c(teaching="no", tenure track= "yes", "tenured"= "yes"))
 ```
 
+[Note 1: the command above gave me an error message halting execution, so I've removed this from the Knit.]
 
+```
 Q15. Fit a new linear model called m_tenure_eligible to predict average professor evaluation score based on tenure_eligibleness of the professor. This is the new (regrouped) variable you created in Exercise 15. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data. Also determine and interpret the R2
 of the model.
 
